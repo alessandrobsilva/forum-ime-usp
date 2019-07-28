@@ -1,0 +1,9 @@
+<% if current_user.admin? %>
+  <title><%= t(:new_forum) %></title>
+  <h3><%= t(:new_forum) %></h3>
+  <%= render 'form', forum: @forum %>
+  <%= link_to t(:back), root_path, :class => 'btn btn-default btn-xs' %>
+<% else %>
+  <title><%= t(:forbidden) %></title>
+  <h1><%= t(:forbidden) %></h1>
+<% end %>

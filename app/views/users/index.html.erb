@@ -1,0 +1,38 @@
+<% if current_user.admin? %>
+  <title><%= t(:control_users) %></title>
+  <h3><%= t(:control_users) %></h3>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th><%= t(:name) %></th>
+        <th><%= t(:email) %></th>
+        <th><%= t(:member_since) %></th>
+        <th><%= t(:type) %></th>
+        <th><%= t(:options) %></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @users.each do |user| %>
+        <tr>
+          <td><%= link_to user.name, user %></td>
+          <td><%= user.email %></td>
+          <td><%= date(user.created_at) %></td>
+          <td>
+            <% if user.admin? %>
+              <font color=blue><%= t(:admin) %></font>
+            <% else %>
+              <%= t(:user) %>
+            <% end %>
+          </td>
+          <td>
+            <%= link_to t(:edit), edit_user_path(user), :class => 'btn btn-default btn-xs' %>
+            <%= link_to t(:delete), user, method: :delete, data: { confirm: t(:are_you_sure) }, :class => 'btn btn-xs btn-danger' %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <title><%= t(:forbidden) %></title>
+  <h1><%= t(:forbidden) %></h1>
+<% end %>

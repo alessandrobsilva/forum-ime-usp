@@ -1,0 +1,4 @@
+<title><%= t(:new_post) %></title>
+<h3><%= t(:new_post) %></h3>
+<%= render 'form', post: @post %>
+<%= link_to t(:back), "#{courses_path}/#{params[:id]}", :class => 'btn btn-default btn-xs' %>

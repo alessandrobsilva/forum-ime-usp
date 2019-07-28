@@ -1,0 +1,139 @@
+# Files in the config/locales directory are used for internationalization
+# and are automatically loaded by Rails. If you want to use locales other
+# than English, add the necessary files in this directory.
+#
+# To use the locales, use `I18n.t`:
+#
+#     I18n.t 'hello'
+#
+# In views, this is aliased to just `t`:
+#
+#     <%= t('hello') %>
+#
+# To use a different locale, set it with `I18n.locale`:
+#
+#     I18n.locale = :es
+#
+# This would use the information in config/locales/es.yml.
+#
+# The following keys must be escaped otherwise they will not be retrieved by
+# the default I18n backend:
+#
+# true, false, on, off, yes, no
+#
+# Instead, surround them with single quotes.
+#
+# en:
+#   'true': 'foo'
+#
+# To learn more, please read the Rails Internationalization guide
+# available at http://guides.rubyonrails.org/i18n.html.
+
+en:
+
+  hello: "Hello world"
+
+  # layout
+  control_users:      "Control users"
+  discussion:         "Discussions forum"
+  edit_data:          "Edit my infos"
+  forum_title:        "IME-USP discussions forum"
+  institute:          "Institute of Mathematics and Statistics"
+  login:              "Login"
+  logout:             "Logout"
+  new_forum:          "New forum"
+  new_user:           "New user"
+  no_user_logged_msg: "You are not connected!"
+  search_posts:       "Search posts"
+  welcome:            "Welcome"
+
+  # forums
+  are_you_sure:       "Are you sure?"
+  back:               "Back"
+  course_name:        "Course name"
+  delete:             "Delete"
+  description:        "Description"
+  dont_have_courses:  "There are no courses in this forum!"
+  edit:               "Edit"
+  editing_forum:      "Editing forum"
+  forbidden:          "Forbidden"
+  forum_created:      "The forum was successfully created."
+  forum_destroyed:    "The forum was successfully destroyed."
+  forum_updated:      "The forum was successfully updated."
+  have:               "We have"
+  in:                 "in"
+  last_message:       "Last message"
+  messages:           "Messages"
+  messages_lo:        "messages"
+  new_course:         "New course"
+  new_forum:          "New forum"
+  no_disponible:      "Not disponible"
+  posts:              "Posts"
+  registered_users:   "registered users"
+  resource_nd:        "Resource not available"
+  statistics:         "Statistics"
+  the_last_user:      "The last user goes by the name of"
+  title:              "Title"
+  we_members:         "Our members have posted a total of"
+
+  # courses
+  answers:            "Answers"
+  course_created:     "The course was successfully created."
+  course_destroyed:   "The course was successfully destroyed."
+  course_updated:     "The course was successfully updated."
+  created_by:         "Created by"
+  dont_have_posts:    "There are no posts in this course!"
+  editing_course:     "Editing course"
+  new_course:         "New course"
+  new_post:           "New post"
+  post_name:          "Post name"
+
+  # posts
+  admin:              "Administrator"
+  comments_lo:        "comments"
+  cont_the_title:     "Containing the title"
+  course:             "Course"
+  edit_post:          "Edit post"
+  editing_post:       "Editing post"
+  img:                "Clip image"
+  message:            "Message"
+  new_comment:        "New comment"
+  new_post:           "New post"
+  post_created:       "The post was successfully created."
+  post_destroyed:     "The post was successfully destroyed."
+  post_updated:       "The post was successfully updated."
+  registered_at:      "Registered in"
+  search_posts:       "Search posts"
+  user:               "User"
+
+  # comments
+  comment_created:    "The comment was successfully created."
+  comment_destroyed:  "The comment was successfully destroyed."
+  comment_updated:    "The comment was successfully updated."
+  editing_comment:    "Editing comment"
+  message:            "Message"
+
+  # users
+  avatar:             "Photo"
+  commented_in:       "Commented in"
+  comments:           "Comments"
+  content:            "Content"
+  dated:              "Date"
+  editing_user:       "Editing user"
+  email:              "E-mail"
+  member_since:       "Member since"
+  name:               "Name"
+  options:            "Options"
+  type:               "Type"
+  user_created:       "The user was successfully created."
+  user_destroyed:     "The user was successfully destroyed."
+  user_updated:       "The user was successfully updated."
+
+  # devise
+  password:           "Password"
+  password_act:       "Current password"
+  password_conf:      "Password confirmation"
+  remember:           "Remember"
+  update:             "Update"
+  warning_1:          "Leave these fields blank if you do not want to change your password"
+  warning_2:          "You must enter your current password to make changes"

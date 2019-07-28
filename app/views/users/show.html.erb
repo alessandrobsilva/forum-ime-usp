@@ -1,0 +1,63 @@
+<% if current_user.admin? %>
+  <title><%= @user.name %></title>
+  <h3><%= @user.name %></h3>
+  <h7>
+    <b><%= "#{t(:email)}: " %></b><%= @user.email%>
+    <br><b><%= "#{t(:member_since)}: " %></b><%= date(@user.created_at) %>
+    <br><b><%= "#{t(:type)}: " %></b>
+      <% if @user.admin? %>
+        <font color=blue><%= t(:admin) %></font>
+      <% else %>
+        <%= t(:user) %>
+      <% end %>
+  </h7>
+  <% if @user.posts.size > 0 %>
+    <h3><%= t(:posts) %></h3>
+    <table class="table table-striped">
+      <thead>
+        <th width=60%><%= t(:post_name) %></th>
+        <th><%= t(:comments) %></th>
+        <th><%= t(:dated) %></th>
+      </thead>
+      <% @user.posts.each do |post| %>
+        <tbody>
+          <td>
+            <% if current_user.id == post.user_id %>
+              <%= link_to t(:edit), edit_post_path(post), :class => 'btn btn-default btn-xs' %>
+            <% end %>
+            <%= link_to t(:delete), post, method: :delete, data: { confirm: t(:are_you_sure) }, :class => 'btn btn-danger btn-xs' %>
+            <%= link_to post.title, post %>
+          </td>
+          <td><%= post.comments.size %></td>
+          <td><%= date(post.created_at) %></td>
+        </tbody>
+      <% end %>
+    </table>
+  <% end %>
+  <% if @user.comments.size > 0 %>
+    <h3><%= t(:comments) %></h3>
+    <table class="table table-striped">
+      <thead>
+        <th width=60%><%= t(:content) %></th>
+        <th><%= t(:commented_in) %></th>
+        <th><%= t(:dated) %></th>
+      </thead>
+      <% @user.comments.each do |comment| %>
+        <tbody>
+          <td>
+            <% if current_user.id == comment.user_id %>
+              <%= link_to t(:edit), edit_comment_path(comment), :class => 'btn btn-default btn-xs' %>
+            <% end %>
+            <%= link_to t(:delete), comment, method: :delete, data: { confirm: t(:are_you_sure) }, :class => 'btn btn-danger btn-xs' %>
+            <%= comment.content %>
+          </td>
+          <td><%= link_to comment.post.title, comment.post %></td>
+          <td><%= date(comment.created_at) %>
+        </tbody>
+      <% end %>
+    </table>
+  <% end %>
+<% else %>
+  <title><%= t(:forbidden) %></title>
+  <h1><%= t(:forbidden) %></h1>
+<% end %>

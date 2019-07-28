@@ -1,0 +1,9 @@
+<% if current_user.admin? %>
+  <title><%= t(:editing_user) %></title>
+  <h3><%= t(:editing_user) %></h3>
+  <%= render 'form', user: @user %>
+  <%= link_to t(:back), users_path, :class => 'btn btn-default btn-xs' %>
+<% else %>
+  <title><%= t(:forbidden) %></title>
+  <h1><%= t(:forbidden) %></h1>
+<% end %>

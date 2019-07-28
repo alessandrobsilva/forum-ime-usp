@@ -1,0 +1,50 @@
+<title><%= t(:search_posts) %></title>
+<h3><%= t(:search_posts) %></h3>
+
+<br>
+<div align=left>
+  <%= search_form_for @q do |f| %>
+    <b><%= t(:cont_the_title) %></b>
+    <%= f.search_field :title_cont %>
+    <%= f.submit %>
+  <% end %>
+</div>
+<br>
+
+<% if @posts.size > 0 %>
+  <table class="table table-striped">
+    <thead>
+      <th width=50%><%= t(:post_name) %></th>
+      <th><%= t(:answers) %></th>
+      <th><%= t(:created_by) %></th>
+      <th><%= t(:course) %></th>
+    </thead>
+    <tbody>
+      <% @posts.each do |post| %>
+        <tr>
+          <td>
+            <% if user_signed_in? && (current_user.admin? || current_user.id == post.user.id) %>
+              <% if current_user.id == post.user.id %>
+                <%= link_to t(:edit), edit_post_path(post), :class => 'btn btn-default btn-xs' %>
+              <% end %>
+              <%= link_to t(:delete), post, method: :delete, data: { confirm: t(:are_you_sure) }, :class => 'btn btn-xs btn-danger' %>
+            <% end %>
+            <%= link_to post.title, post %>
+          </td>
+          <td><%= post.comments.size %></td>
+          <td>
+            <b>
+              <% if post.user.admin? %>
+                <font color=blue><%= post.user.name %></font>
+              <% else %>
+                <%= post.user.name %>
+              <% end %>
+            </b>
+            <br><%= date(post.created_at) %>
+          </td>
+          <td><%= link_to post.course.title, post.course %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>

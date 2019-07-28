@@ -1,0 +1,9 @@
+<% if current_user.id == @comment.user_id %>
+  <title><%= t(:editing_comment) %></title>
+  <h3><%= t(:editing_comment) %></h3>
+  <%= render 'form', comment: @comment %>
+  <%= link_to t(:back), @comment.post, :class => 'btn btn-default btn-xs' %>
+<% else %>
+  <title><%= t(:forbidden) %></title>
+  <h1><%= t(:forbidden) %></h1>
+<% end %>

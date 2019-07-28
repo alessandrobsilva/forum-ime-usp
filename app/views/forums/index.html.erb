@@ -1,0 +1,68 @@
+<title><%= t(:forum_title) %></title>
+<% @forums.each do |forum| %>
+  <hr>
+  <h3><%= forum.title %></h3>
+  <% if user_signed_in? && current_user.admin? %>
+    <div>
+      <%= link_to t(:new_course), new_course(forum), :class => 'btn btn-default btn-xs' %>
+      <%= link_to t(:edit), edit_forum_path(forum), :class => 'btn btn-default btn-xs' %>
+      <%= link_to t(:delete), forum, method: :delete, data: { confirm: t(:are_you_sure) }, :class => 'btn btn-xs btn-danger' %>
+    </div>
+  <% end %>
+  <% if forum.courses.size > 0 %>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th><%= t(:course_name) %></th>
+          <th><%= t(:posts) %></th>
+          <th><%= t(:messages) %></th>
+          <th><%= t(:last_message) %></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% courses_of(forum).each do |course| %>
+          <tr>
+            <td width=60%>
+              <% if user_signed_in? && current_user.admin? %>
+                <%= link_to t(:edit), edit_course_path(course), :class => 'btn btn-default btn-xs' %>
+                <%= link_to t(:delete), course, method: :delete, data: { confirm: t(:are_you_sure) }, :class => 'btn btn-xs btn-danger' %>
+              <% end %>
+              <%= link_to course.title, course %>
+            </td>
+            <td><%= number_of_posts course %></td>
+            <td><%= number_of_messages course %></td>
+            <td>
+              <% last_post course %>
+              <% if @post != nil %>
+                <% if @post.comments.size > 0 %>
+                  <% if @post.comments.last.user.admin? %>
+                    <b><font color=blue><%= @post.comments.last.user.name %></font></b>
+                  <% else %>
+                    <b><%= @post.comments.last.user.name %></b>
+                  <% end %>
+                <% else %>
+                  <% if @post.user.admin? %>
+                    <b><font color=blue><%= @post.user.name %></font></b>
+                  <% else %>
+                    <b><%= @post.user.name %></b>
+                  <% end %>
+                <% end %>
+                <br><%= "#{t(:in)} " %><%= link_to @post.title, @post %>
+              <% else %>
+                <%= t(:no_disponible) %>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% else %>
+    <h4><%= t(:dont_have_courses) %></h4>
+  <% end %>
+<% end %>
+
+<hr>
+<b><%= t(:statistics) %></b>
+<br><%= "#{t(:we_members)} " %><b><%= number_of_all_messages %></b><%= " #{t(:messages_lo)}" %>
+<br><%= "#{t(:have)} " %><b><%= number_of_users %></b><%= " #{t(:registered_users)}" %>
+<br><%= "#{t(:the_last_user)} " %><b><%= last_user_name %></b>

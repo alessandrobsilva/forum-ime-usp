@@ -1,0 +1,87 @@
+<title><%= @post.title %></title>
+<div>
+  <h7>
+    <%= link_to @post.course.forum.title, root_path %> ::
+    <%= link_to @post.course.title, @post.course %> ::
+    <%= link_to @post.title, @post %>
+  </h7>
+</div>
+<h3><%= @post.title %></h3>
+<% if user_signed_in? %>
+  <p>
+    <div>
+      <% if current_user.id == @post.user.id %>
+        <%= link_to t(:edit_post), edit_post_path(@post), :class => 'btn btn-default btn-xs' %>
+      <% end %>
+      <%= link_to t(:new_comment), new_comment(@post), :class => 'btn btn-default btn-xs' %>
+    </div>
+  </p>
+<% end %>
+<table class="table table-striped">
+  <tr>
+    <td width=20%>
+      <center>
+        <%= image_tag @post.user.avatar.url(:thumb) %>
+        <br>
+        <% if @post.user.admin? %>
+          <b><font color=blue><%= @post.user.name %></font></b>
+          <br><%= t(:admin) %>
+        <% else %>
+          <b><%= @post.user.name %></b>
+          <br><%= t(:user) %>
+        <% end %>
+        <br><%= "#{t(:registered_at)} " %>
+        <br><%= date(@post.user.created_at) %>
+        <br><%= @post.user.comments.size %><%= " #{t(:comments_lo)}" %>
+      </center>
+    </td>
+    <td>
+      <p>
+        <sup><%= "#{t(:in)} " %><%= date(@post.updated_at) %></sup>
+        <div><%= markdown(@post.content) %></div>
+      </p>
+      <% if !@post.picture.blank? %>
+        <%= image_tag @post.picture.url(:big) %>
+      <% end %>
+    </td>
+  </tr>
+  <% if @post.comments.size > 0 %>
+    <% comments_of(@post).each do |comment| %>
+      <tr>
+        <td>
+          <center>
+            <%= image_tag comment.user.avatar.url(:thumb) %>
+            <br>
+            <% if comment.user.admin? %>
+              <b><font color=blue><%= comment.user.name %></font></b>
+              <br><%= t(:admin) %>
+            <% else %>
+              <b><%= comment.user.name %></b>
+              <br><%= t(:user) %>
+            <% end %>
+            <br><%= "#{t(:registered_at)} " %>
+            <br><%= date(comment.user.created_at) %>
+            <br><%= comment.user.comments.size %><%= " #{t(:comments_lo)}" %>
+          </center>
+        </td>
+        <td>
+          <div>
+            <% if user_signed_in? && (current_user.admin? || current_user.id == comment.user.id) %>
+              <% if current_user.id == comment.user.id %>
+                <%= link_to t(:edit), edit_comment_path(comment), :class => 'btn btn-default btn-xs' %>
+              <% end %>
+              <%= link_to t(:delete), comment, method: :delete, data: { confirm: t(:are_you_sure) }, :class => 'btn btn-danger btn-xs' %>
+            <% end %>
+          </div>
+          <p>
+            <sup><%= "#{t(:in)} " %><%= date(comment.updated_at) %></sup>
+            <div><%= markdown(comment.content) %></div>
+          </p>
+          <% if !comment.picture.blank? %>
+            <%= image_tag comment.picture.url(:medium) %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  <% end %>
+</table>

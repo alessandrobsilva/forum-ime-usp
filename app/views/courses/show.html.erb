@@ -1,0 +1,68 @@
+<title><%= @course.title %></title>
+<div>
+  <h7>
+    <%= link_to @course.forum.title, root_path %> ::
+    <%= link_to @course.title, @course %>
+  </h7>
+</div>
+<br>
+
+<% if user_signed_in? %>
+  <div>
+    <%= link_to t(:new_post), new_post(@course), :class => 'btn btn-default btn-xs' %>
+  </div>
+<% end %>
+<% if @course.posts.size > 0 %>
+  <table class="table table-striped">
+    <thead>
+      <th><%= t(:post_name) %></th>
+      <th><%= t(:created_by) %></th>
+      <th><%= t(:answers) %></th>
+      <th><%= t(:last_message) %></th>
+    </thead>
+    <tbody>
+      <% posts_of(@course).each do |post| %>
+        <tr>
+          <td width=60%>
+            <% if user_signed_in? && (current_user.admin? || current_user.id == post.user.id) %>
+              <% if current_user.id == post.user.id %>
+                <%= link_to t(:edit), edit_post_path(post), :class => 'btn btn-default btn-xs' %>
+              <% end %>
+              <%= link_to t(:delete), post, method: :delete, data: { confirm: t(:are_you_sure) }, :class => 'btn btn-xs btn-danger' %>
+            <% end %>
+            <%= link_to post.title, post %>
+          </td>
+          <td>
+            <% if post.user.admin? %>
+              <b><font color=blue><%= post.user.name %></font></b>
+            <% else %>
+              <b><%= post.user.name %></b>
+            <% end %>
+            <br><%= date(post.created_at) %>
+          </td>
+          <td><%= post.comments.size.to_s %></td>
+          <td>
+            <b>
+              <% if post.comments.size > 0 %>
+                <% if post.comments.last.user.admin? %>
+                  <font color=blue><%= post.comments.last.user.name %></font>
+                <% else %>
+                  <%= post.comments.last.user.name %>
+                <% end %>
+              <% else %>
+                <% if post.user.admin? %>
+                  <font color=blue><%= post.user.name %></font>
+                <% else %>
+                  <%= post.user.name %>
+                <% end %>
+              <% end %>
+            </b>
+            <br><%= date(post.updated_at) %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <h4><%= t(:dont_have_posts) %></h4>
+<% end %>

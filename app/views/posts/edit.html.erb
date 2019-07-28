@@ -1,0 +1,9 @@
+<% if current_user.id == @post.user_id %>
+  <title><%= t(:editing_post) %></title>
+  <h3><%= t(:editing_post) %></h3>
+  <%= render 'form', post: @post %>
+  <%= link_to t(:back), @post.course, :class => 'btn btn-default btn-xs' %>
+<% else %>
+  <title><%= t(:forbidden) %></title>
+  <h1><%= t(:forbidden) %></h1>
+<% end %>

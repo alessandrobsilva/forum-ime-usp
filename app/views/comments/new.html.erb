@@ -1,0 +1,4 @@
+<title><%= t(:new_comment) %></title>
+<h3><%= t(:new_comment) %></h3>
+<%= render 'form', comment: @comment %>
+<%= link_to t(:back), "#{posts_path}/#{params[:id]}", :class => 'btn btn-default btn-xs' %>
