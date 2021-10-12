@@ -13,7 +13,7 @@ gem "jbuilder", "~> 2.5"
 gem "jquery-rails"
 gem "mini_racer", :platform=>:ruby
 gem "paperclip", ">= 5.2.0"
-gem "puma", "~> 3.11"
+gem "puma", "~> 4.3"
 gem "rails", "~> 5.2.3"
 gem "ransack"
 gem "redcarpet", "~> 3.4"
